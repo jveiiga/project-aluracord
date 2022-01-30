@@ -2,65 +2,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/router'
 import appConfig from '../config.json'
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
-
-// function GlobalStyle() {
-//     return (
-//       <style global jsx>{`
-//         * {
-//           margin: 0;
-//           padding: 0;
-//           box-sizing: border-box;
-//           list-style: none;
-//           text-decoration: none;
-//         }
-//         body {
-//           color: ${appConfig.theme.colors.neutrals['000']};
-//           width: 100%;
-//           font-family: 'Open sans', sans-serif;
-//           background-color: #000;
-//           background-image: url("");
-//           background-repeat: no-repeat;
-//         }
-//         /* App fit Height */
-//         html,
-//         body,
-//         #__next {
-//           min-height: 100vh;
-//           display: flex;
-//           justify-content: center;
-//           flex: 1;
-//         }
-//         #__next {
-//           flex: 1;
-//         }
-//         #__next > * {
-//           flex: 1;
-//         }
-//         /* ./App fit Height */
-//       `}</style>
-//     );
-// } 
-
-function Titulo(props) {
-    const Tag = props.tag || 'h1';
-    return (
-      <div>
-        <Tag>{props.children}</Tag>
-        <style jsx>{`
-              ${Tag} {
-                  color: ${appConfig.theme.colors.neutrals['000']};
-                  font-size: 24px;
-                  font-weight: 600;
-                  margin-top: 20px;
-              }
-              `}</style>
-      </div>
-    );
-  } 
-
+import Title from '../components/Title'
 
 export default function InitialPage() {
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useState('jveiiga');
     const Router = useRouter();
     // const [disable, setDisable] = useState(false);   
 
@@ -117,10 +62,10 @@ export default function InitialPage() {
                 marginBottom: "32px",
               }}
             >
-              <Titulo tag="h2">
+              <Title tag="h2">
                 {/* title */}
                 Venha para o lado negro, aqui tem biscoito!
-              </Titulo>
+              </Title>
               <Text // subtitle
                 variant="body3"
                 styleSheet={{
@@ -149,7 +94,7 @@ export default function InitialPage() {
               <Button
                 type="submit"
                 label="Entrar"
-                disabled={true}
+                // disabled={true}
                 fullWidth
                 buttonColors={{
                   contrastColor: appConfig.theme.colors.neutrals["000"], //cor text
