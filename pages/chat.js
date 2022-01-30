@@ -1,7 +1,9 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import appConfig from '../config.json';
+import { createClient } from '@supabase/supabase-js'
 import Header from '../components/Header'
+
     /*
     // Usuário
     - Usuário digita no campo textarea
@@ -10,25 +12,65 @@ import Header from '../components/Header'
     
     // Dev
     - [X] Campo criado
-    - [ ] (Aperta enter para enviar) - Vamos usar o onChange usa o useState (ter if pra caso seja enter pra limpar a variavel)
-    - [ ] Lista de mensagens 
+    - [X] (Aperta enter para enviar) - Vamos usar o onChange usa o useState (ter if pra caso seja enter pra limpar a variavel)
+    - [X] Lista de mensagens 
     */
+
+    /************************************************/
+
+    //Keys 
+    
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzUwNTQwMCwiZXhwIjoxOTU5MDgxNDAwfQ.JnPNcSoo-n89fNcfc-KU4-iI0XTlV_rVP06LzYr4AqQ';
+const SUPABASE_URL = 'https://vymybdplniufdfjuutyq.supabase.co';
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+
 export default function ChatPage() {
   const [message, setmessage] = useState('');
   const [list, setList] = useState([]);
 
+useEffect(() => {
+  supabaseClient
+  .from('mensagens')
+  .select('*') // (Read) Seleciona no banco de dados as mensagens gravadas 
+  .order('id', { ascending: false})
+  .then(({data}) => {
+      console.log(data);
+      setList(data);
+  })
+}, [])
+
   function handleNewMessage(newMessage) {
     const message = {
-        id: list.length + 1,
-        from: 'vanesssametonini',
-        text: newMessage,
-    }
-    setList([
-        message,
-        ...list,
-    ]);
-    setmessage('');
+      // id: list.length + 1,
+      de: 'jveiiga' ,
+      texto: newMessage,
+    };
+    supabaseClient
+      .from('mensagens')
+      .insert([ // (Create) Cria no banco de dados as mensagens digitadas 
+          message
+      ])
+      .then(({ data }) => {
+        console.log('O que ta vindo como resposta', data)
+        setList([data[0], ...list]);
+        })
+        setmessage('');
   }
+
+  // fetch(`${SUPABSE_URL}/rest/v1/mensagens?select=*`, {
+  //    Headers: {
+  //            'Content-Type': 'application/json',
+  //            'apikey': SUPABASE_ANON_KEY,
+  //            'Authorization': 'Bearer' + SUPABASE_ANON_KEY,
+  //    }
+  //  })
+  //   .then((res) => {
+  //        return res.json();
+  //    })
+  //    .then((res) => {
+  //           console.log(res);
+  //   });
 
   return (
     <Box
@@ -36,8 +78,8 @@ export default function ChatPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: appConfig.theme.colors.primary[500],
-        backgroundImage: `url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)`,
+        // backgroundColor: appConfig.theme.colors.primary[500],
+        backgroundImage: `url(https://poltronanerd.com.br/wp-content/uploads/2016/06/poltrona-darth-vader.jpg)`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundBlendMode: "multiply",
@@ -112,7 +154,7 @@ export default function ChatPage() {
 }
 
 function MessageList(props) {
-    console.log(props);
+
     return (
       <Box
         tag="ul"
@@ -131,7 +173,6 @@ function MessageList(props) {
               key={message.id}
               tag="li"
               styleSheet={{
-                border: "1px solid red",
                 borderRadius: "5px",
                 padding: "6px",
                 marginBottom: "12px",
@@ -153,9 +194,9 @@ function MessageList(props) {
                     display: "inline-block",
                     marginRight: "8px",
                   }}
-                  src={`https://github.com/vanessametonini.png`}
+                  src={`https://github.com/${message.de}.png`}
                 />
-                <Text tag="strong">{message.from}</Text>
+                <Text tag="strong">{message.de}</Text>
                 <Text
                   styleSheet={{
                     fontSize: "10px",
@@ -167,7 +208,7 @@ function MessageList(props) {
                   {new Date().toLocaleDateString()}
                 </Text>
               </Box>
-              {message.text}
+              {message.texto}
             </Text>
           );
         })}
