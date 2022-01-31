@@ -14,7 +14,7 @@ export default function Header() {
         >
           <Text variant="heading5">Chat</Text>
           <Button
-            styleSheet={{ color: "#c9c9c9", border: "1px solid #c9c9c9" }}
+            styleSheet={{ color: "#c9c9c9" }}
             variant="tertiary"
             colorVariant="neutral"
             label="Logout"
