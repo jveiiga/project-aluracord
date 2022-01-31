@@ -34,7 +34,7 @@ export default function Header() {
               border: "1px solid",
               borderRadius: "6px",
               padding: "10px",
-              maxWidth: "700px",
+              maxWidth: "730px",
               marginBottom: "10px",
             }}
           >
