@@ -1,4 +1,4 @@
-import { Box, Text, TextField, Image, Button } from '@skynexui/components';
+import { Box, TextField } from '@skynexui/components';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
@@ -27,19 +27,21 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5v
 const SUPABASE_URL = 'https://vymybdplniufdfjuutyq.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+function listeningMessageRealTime(addMessage) {
+    return supabaseClient
+      .from('mensagens')
+      .on('INSERT', ( response ) => {
+          // console.log('nova mensagem', response);
+          addMessage(response.new);
+      })
+      .subscribe();
+}
 
 export default function ChatPage() {
   const Router = useRouter();
   const userLog = Router.query.username;
   const [message, setmessage] = useState('');
-  const [list, setList] = useState([
-
-    // {
-    //   id: 1,
-    //   de: 'jveiiga',
-    //   texto: ':sticker: https://c.tenor.com/MIReK4Ph2A4AAAAM/lego-star-wars-holiday-special-most-impressive.gif',
-    // }
-  ]);
+  const [list, setList] = useState([]);
 
 useEffect(() => {
   supabaseClient
@@ -49,6 +51,13 @@ useEffect(() => {
   .then(({data}) => {
       setList(data);
   })
+
+  listeningMessageRealTime((newMessage) => {
+    console.log('nova mensagen', newMessage);
+    setList((currentValueList) => {
+      return [newMessage, ...currentValueList];
+    });
+  });
 }, [])
 
   function handleNewMessage(newMessage) {
@@ -63,7 +72,7 @@ useEffect(() => {
           message
       ])
       .then(({ data }) => {
-        setList([data[0], ...list]);
+        
         })
         setmessage('');
   }
@@ -158,7 +167,7 @@ useEffect(() => {
             />
             <ButtonSendSticker 
                 onStickerClick={(sticker) => {
-                    console.log('[Usando componente] Salva esse sticker no banco', sticker)
+                    // console.log('[Usando componente] Salva esse sticker no banco', sticker)
                     handleNewMessage(`:sticker:${sticker}`);
                 }}
             />
