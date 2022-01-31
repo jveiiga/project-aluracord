@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router'
-import appConfig from '../config.json'
+import { useRouter } from 'next/router';
+import appConfig from '../config.json';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
-import Title from '../components/Title'
+import Title from '../src/components/Title'
 
 export default function InitialPage() {
     const [username, setUsername] = useState('jveiiga');
@@ -49,7 +49,7 @@ export default function InitialPage() {
               as="form"
               onSubmit={(e) => {
                 e.preventDefault();
-                Router.push("/chat");
+                Router.push(`/chat?username=${username}`);
               }}
               styleSheet={{
                 // border: "1px solid red",

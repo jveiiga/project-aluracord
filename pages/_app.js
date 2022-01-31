@@ -11,9 +11,9 @@ function GlobalStyle() {
           text-decoration: none;
         }
         body {
-          color: ${appConfig.theme.colors.neutrals['000']};
+          color: ${appConfig.theme.colors.neutrals["000"]};
           width: 100%;
-          font-family: 'Open sans', sans-serif;
+          font-family: "Open sans", sans-serif;
           background-color: #000;
           background-image: url("");
           background-repeat: no-repeat;

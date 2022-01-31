@@ -1,8 +1,11 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { createClient } from '@supabase/supabase-js';
 import appConfig from '../config.json';
-import { createClient } from '@supabase/supabase-js'
-import Header from '../components/Header'
+import Header from '../src/components/Header';
+import MessageList from '../src/components/MessageList';
+import { ButtonSendSticker } from '../src/components/ButtonSendSticker';
 
     /*
     // Usuário
@@ -22,12 +25,21 @@ import Header from '../components/Header'
     
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzUwNTQwMCwiZXhwIjoxOTU5MDgxNDAwfQ.JnPNcSoo-n89fNcfc-KU4-iI0XTlV_rVP06LzYr4AqQ';
 const SUPABASE_URL = 'https://vymybdplniufdfjuutyq.supabase.co';
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 export default function ChatPage() {
+  const Router = useRouter();
+  const userLog = Router.query.username;
   const [message, setmessage] = useState('');
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([
+
+    // {
+    //   id: 1,
+    //   de: 'jveiiga',
+    //   texto: ':sticker: https://c.tenor.com/MIReK4Ph2A4AAAAM/lego-star-wars-holiday-special-most-impressive.gif',
+    // }
+  ]);
 
 useEffect(() => {
   supabaseClient
@@ -35,7 +47,6 @@ useEffect(() => {
   .select('*') // (Read) Seleciona no banco de dados as mensagens gravadas 
   .order('id', { ascending: false})
   .then(({data}) => {
-      console.log(data);
       setList(data);
   })
 }, [])
@@ -43,7 +54,7 @@ useEffect(() => {
   function handleNewMessage(newMessage) {
     const message = {
       // id: list.length + 1,
-      de: 'jveiiga' ,
+      de: userLog,
       texto: newMessage,
     };
     supabaseClient
@@ -52,7 +63,6 @@ useEffect(() => {
           message
       ])
       .then(({ data }) => {
-        console.log('O que ta vindo como resposta', data)
         setList([data[0], ...list]);
         })
         setmessage('');
@@ -143,8 +153,14 @@ useEffect(() => {
                 padding: "6px 8px",
                 backgroundColor: appConfig.theme.colors.neutrals[800],
                 marginRight: "12px",
-                color: appConfig.theme.colors.neutrals[200],
+                color: appConfig.theme.colors.neutrals['000'],
               }}
+            />
+            <ButtonSendSticker 
+                onStickerClick={(sticker) => {
+                    console.log('[Usando componente] Salva esse sticker no banco', sticker)
+                    handleNewMessage(`:sticker:${sticker}`);
+                }}
             />
           </Box>
         </Box>
@@ -153,66 +169,5 @@ useEffect(() => {
   );
 }
 
-function MessageList(props) {
 
-    return (
-      <Box
-        tag="ul"
-        styleSheet={{
-          overflow: "scroll",
-          display: "flex",
-          flexDirection: "column-reverse",
-          flex: 1,
-          color: appConfig.theme.colors.neutrals["000"],
-          marginBottom: "16px",
-        }}
-      >
-        {props.list.map((message) => {
-          return (
-            <Text
-              key={message.id}
-              tag="li"
-              styleSheet={{
-                borderRadius: "5px",
-                padding: "6px",
-                marginBottom: "12px",
-                hover: {
-                  backgroundColor: appConfig.theme.colors.neutrals[700],
-                },
-              }}
-            >
-              <Box
-                styleSheet={{
-                  marginBottom: "8px",
-                }}
-              >
-                <Image
-                  styleSheet={{
-                    width: "20px",
-                    height: "20px",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    marginRight: "8px",
-                  }}
-                  src={`https://github.com/${message.de}.png`}
-                />
-                <Text tag="strong">{message.de}</Text>
-                <Text
-                  styleSheet={{
-                    fontSize: "10px",
-                    marginLeft: "8px",
-                    color: appConfig.theme.colors.neutrals[300],
-                  }}
-                  tag="span"
-                >
-                  {new Date().toLocaleDateString()}
-                </Text>
-              </Box>
-              {message.texto}
-            </Text>
-          );
-        })}
-      </Box>
-    );
-}
     
