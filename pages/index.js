@@ -64,7 +64,7 @@ export default function InitialPage() {
             >
               <Title tag="h2">
                 {/* title */}
-                Venha para o lado negro, aqui tem biscoito!
+                Venha para o lado negro, aqui tem biscoito.
               </Title>
               <Text // subtitle
                 variant="body3"

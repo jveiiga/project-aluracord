@@ -38,7 +38,7 @@ export default function Header() {
               marginBottom: "10px",
             }}
           >
-            Deixe-me uma mensagem && diga-me o que achou! 😊🖤 Que a força
+            Deixe-me uma mensagem <code>||</code> Gif <code>&&</code> diga-me o que achou! 😊🖤 Que a força
             esteja com você. ✨
           </Text>
         </Box>
