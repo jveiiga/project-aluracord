@@ -6,7 +6,7 @@ export default function Header() {
         <Box
           styleSheet={{
             width: "100%",
-            marginBottom: "16px",
+            marginBottom: "10px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -21,21 +21,27 @@ export default function Header() {
             href="/"
           />
         </Box>
-        <Text
+        <Box
           styleSheet={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            color: "#c9c9c9",
-            // border: "1px solid",
-            borderRadius: "6px",
-            padding: "10px",
-            // maxWidth: "700px"
           }}
         >
-          Deixe-me uma mensagem && diga-me o que achou! 😊🖤 Que a
-          força esteja com você. ✨
-        </Text>
+          <Text
+            styleSheet={{
+              color: "#c9c9c9",
+              border: "1px solid",
+              borderRadius: "6px",
+              padding: "10px",
+              maxWidth: "700px",
+              marginBottom: "10px",
+            }}
+          >
+            Deixe-me uma mensagem && diga-me o que achou! 😊🖤 Que a força
+            esteja com você. ✨
+          </Text>
+        </Box>
       </>
     );
 }
