@@ -30,6 +30,8 @@
 <a href="https://github.com/jveiiga/project-anima/blob/main/style.css" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40" /> </a> <img src="https://plusreturn.com/wp-content/uploads/2021/12/1582113383-storybook.png" alt="css3" width="50" height="40"/>
 <a href="" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="figma" width="40" height="40" /> </a>
 <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/><a href="https://www.figma.com/file/rf4PxqFBWBkHa9NoP8elGY/Anima---Miss-Cupcake-Responsive-Sample-File-(Community)?node-id=0%3A1" target="_blank"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40" /> </a>
+<a href="https://www.npmjs.com/" target="_blank"><img src="https://fknop.gallerycdn.vsassets.io/extensions/fknop/vscode-npm/3.3.0/1474455291139/Microsoft.VisualStudio.Services.Icons.Default" alt="npm" width="60" height="40"/> </a>
+  
 
 ## 👨🏻‍🏫 Mentoria
 
